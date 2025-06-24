@@ -54,10 +54,10 @@ export const setupServer = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log('Подключение к базе данных MongoDB успешно установлено');
+      console.log('Підключення до бази даних MongoDB успішно виконано');
     })
     .catch((err) => {
-      console.error('Ошибка при подключении к базе данных:', err);
+      console.error('Помилка при підключенні до бази даних', err);
     });
 
   app.use('/contacts', contactsRouter);
