@@ -38,7 +38,7 @@ export const initMongoConnection = async () => {
     process.exit(1);
   }
 
-  const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_URL}/${MONGODB_DB}?retryWrites=true&w=majority&appName=Cluster0`;
+  const uri = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_URL}/${MONGODB_DB}?retryWrites=true&w=majority&appName=Cluster0k`;
 
   console.log(' Сформовано MongoDB URI:', uri);
   try {

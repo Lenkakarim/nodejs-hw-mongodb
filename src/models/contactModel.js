@@ -33,4 +33,4 @@ const contactSchema = new mongoose.Schema(
 );
 
 export const Contact = mongoose.model('Contact', contactSchema);
-export default Contact;
+// export default Contact;
