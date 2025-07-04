@@ -9,11 +9,62 @@ import {
 } from '../services/contacts.js';
 
 export async function getAllContactsController(req, res) {
-  const contacts = await getAllContacts();
+  const {
+    page = 1,
+    perPage = 10,
+    sortBy = 'name',
+    sortOrder = 'asc',
+    type,
+    isFavourite,
+  } = req.query;
+
+  const pageNumber = parseInt(page);
+  const limit = parseInt(perPage);
+  const skip = (pageNumber - 1) * limit;
+
+  let allContacts = await getAllContacts();
+
+  if (type) {
+    allContacts = allContacts.filter(
+      (contact) => contact.contactType?.toLowerCase() === type.toLowerCase(),
+    );
+  }
+
+  if (isFavourite !== undefined) {
+    const isFavBool = isFavourite === 'true';
+    allContacts = allContacts.filter(
+      (contact) => contact.isFavourite === isFavBool,
+    );
+  }
+
+  const sortedContacts = [...allContacts].sort((a, b) => {
+    const aValue = a[sortBy]?.toString().toLowerCase() || '';
+    const bValue = b[sortBy]?.toString().toLowerCase() || '';
+
+    return sortOrder === 'desc'
+      ? bValue.localeCompare(aValue)
+      : aValue.localeCompare(bValue);
+  });
+
+  const totalItems = sortedContacts.length;
+  const totalPages = Math.ceil(totalItems / limit);
+  const hasPreviousPage = pageNumber > 1;
+  const hasNextPage = pageNumber < totalPages;
+
+  const paginatedContacts = sortedContacts.slice(skip, skip + limit);
+
   res.status(200).json({
     status: 200,
     message: 'Successfully found contacts!',
-    data: contacts,
+    data: {
+      data: paginatedContacts,
+      page: pageNumber,
+      perPage: limit,
+      totalItems,
+      totalPages,
+      hasPreviousPage,
+      hasNextPage,
+    },
   });
 }
 
