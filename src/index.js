@@ -2,25 +2,21 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { initMongoConnection } from './db/initMongoConnection.js';
-import { setupServer } from './server.js';
+import app from './server.js';
 
-process.on('uncaughtException', (err) => {
-  console.error('[uncaughtException] Uncaught exception:', err.message);
-  console.error(err.stack);
+const PORT = process.env.PORT || 300;
+
+process.on('uncaughtException', () => {
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason) => {
-  console.error('[unhandledRejection] Unhandled promise rejection:', reason);
-});
+process.on('unhandledRejection', () => {});
 
 const bootstrap = async () => {
   try {
     await initMongoConnection();
-    setupServer();
-  } catch (err) {
-    console.error('Failed to launch application:', err.message);
-    console.error(err.stack);
+    app.listen(PORT);
+  } catch {
     process.exit(1);
   }
 };
