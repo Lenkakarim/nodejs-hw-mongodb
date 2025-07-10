@@ -1,26 +1,43 @@
 import Contact from '../models/contactModel.js';
 
-export const getAllContacts = async () => {
-  return await Contact.find();
+export const getAllContacts = async ({
+  filter = {},
+  skip = 0,
+  limit = 10,
+  sortBy = 'name',
+  sortOrder = 'asc',
+}) => {
+  const sortCriteria = { [sortBy]: sortOrder === 'desc' ? -1 : 1 };
+
+  const [contacts, totalItems] = await Promise.all([
+    Contact.find(filter).sort(sortCriteria).skip(skip).limit(limit),
+    Contact.countDocuments(filter),
+  ]);
+
+  return { contacts, totalItems };
 };
 
-export const getContactById = async (id) => {
-  return await Contact.findById(id);
+export const getContactById = async (id, userId) => {
+  return Contact.findOne({ _id: id, userId });
 };
 
 export const addContact = async (contactData) => {
   const contact = new Contact(contactData);
-  return await contact.save();
+  return contact.save();
 };
 
-export const removeContact = async (id) => {
-  return await Contact.findByIdAndDelete(id);
+export const removeContact = async (id, userId) => {
+  return Contact.findOneAndDelete({ _id: id, userId });
 };
 
-export const updateContact = async (id, updateData) => {
-  return await Contact.findByIdAndUpdate(id, updateData, { new: true });
+export const updateContact = async (id, userId, updateData) => {
+  return Contact.findOneAndUpdate({ _id: id, userId }, updateData, {
+    new: true,
+  });
 };
 
-export const patchContact = async (id, updateData) => {
-  return await Contact.findByIdAndUpdate(id, updateData, { new: true });
+export const patchContact = async (id, userId, updateData) => {
+  return Contact.findOneAndUpdate({ _id: id, userId }, updateData, {
+    new: true,
+  });
 };
