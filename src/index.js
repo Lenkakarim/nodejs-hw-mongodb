@@ -4,7 +4,7 @@ dotenv.config();
 import { initMongoConnection } from './db/initMongoConnection.js';
 import app from './server.js';
 
-const PORT = process.env.PORT || 300;
+const PORT = process.env.PORT || 3000;
 
 process.on('uncaughtException', () => {
   process.exit(1);

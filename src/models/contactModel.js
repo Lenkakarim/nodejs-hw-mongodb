@@ -5,14 +5,18 @@ const contactSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, 'Name is required'],
+      trim: true,
     },
     phoneNumber: {
       type: String,
       required: [true, 'Phone number is required'],
+      trim: true,
     },
     email: {
       type: String,
       default: null,
+      trim: true,
+      lowercase: true,
     },
     isFavourite: {
       type: Boolean,
@@ -24,6 +28,11 @@ const contactSchema = new mongoose.Schema(
       default: 'personal',
       required: true,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -32,5 +41,5 @@ const contactSchema = new mongoose.Schema(
   },
 );
 
-export const Contact = mongoose.model('Contact', contactSchema);
+const Contact = mongoose.model('Contact', contactSchema);
 export default Contact;
