@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import createError from 'http-errors';

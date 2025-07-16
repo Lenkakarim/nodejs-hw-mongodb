@@ -12,13 +12,28 @@ process.on('uncaughtException', () => {
 
 process.on('unhandledRejection', () => {});
 
+// const bootstrap = async () => {
+//   try {
+//     await initMongoConnection();
+//     app.listen(PORT);
+//   } catch {
+//     process.exit(1);
+//   }
+// };
 const bootstrap = async () => {
   try {
     await initMongoConnection();
-    app.listen(PORT);
-  } catch {
+
+    console.log('JWT_ACCESS_SECRET:', process.env.JWT_ACCESS_SECRET);
+    console.log('JWT_REFRESH_SECRET:', process.env.JWT_REFRESH_SECRET);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
+
+    app.listen(PORT, () => {
+      console.log(`Server started on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Bootstrap error:', err);
     process.exit(1);
   }
 };
-
 bootstrap();
