@@ -5,7 +5,7 @@ import { sendResetPasswordEmail } from '../services/emailService.js';
 
 export const sendResetEmail = async (req, res) => {
   const { email } = req.body;
-
+  console.log('JWT_SECRET =', process.env.JWT_SECRET);
   const user = await User.findOne({ email });
   if (!user) {
     throw createError(404, 'User not found!');

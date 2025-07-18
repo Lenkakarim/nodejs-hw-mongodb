@@ -1,5 +1,4 @@
 import express from 'express';
-
 import {
   getAllContactsController,
   getContactByIdController,
@@ -14,7 +13,6 @@ import { isValidId } from '../middlewares/isValidId.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import authenticate from '../middlewares/authenticate.js';
 import upload from '../middlewares/upload.js';
-
 import {
   addContactSchema,
   updateContactSchema,
