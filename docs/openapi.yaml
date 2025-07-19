@@ -1,0 +1,49 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Contacts-app
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    This API provides CRUD operations for managing contacts and supports user registration and login.
+    Users can create, view, update, and delete their contacts after authentication. The API uses JWT for authentication.
+
+tags:
+  - name: Contacts
+    description: Operations related to contacts management
+  - name: Auth
+    description: User registration and authentication
+
+servers:
+  - url: http://localhost:4000
+    description: Local development server
+  - url: https://nodejs-hw-mongodb-w6oy.onrender.com
+    description: Production server
+
+paths:
+  /contacts:
+    get:
+      $ref: ../swagger/paths/contacts/get.yaml#/get
+    post:
+      $ref: ../swagger/paths/contacts/post.yaml#/post
+  /contacts/{contactId}:
+    get:
+      $ref: ../swagger/paths/contacts/{id}/get.yaml#/get
+    patch:
+      $ref: ../swagger/paths/contacts/{id}/patch.yaml#/patch
+    delete:
+      $ref: ../swagger/paths/contacts/{id}/delete.yaml#/delete
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/users/register.yaml#/post
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/users/login.yaml#/post
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

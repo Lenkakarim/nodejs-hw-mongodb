@@ -1,0 +1,67 @@
+Contact:
+  type: object
+  properties:
+    _id:
+      type: string
+      example: '64cde2b1a3bbd14d9b2c5ad2'
+    name:
+      type: string
+      example: 'Anton Ton'
+    email:
+      type: string
+      example: 'antonton@mail.com'
+    phone:
+      type: string
+      example: '+380987654321'
+  required:
+    - _id
+    - name
+    - email
+    - phone
+
+ContactInput:
+  type: object
+  properties:
+    name:
+      type: string
+      example: 'Anton Ton'
+    email:
+      type: string
+      example: 'antonton@mail.com'
+    phone:
+      type: string
+      example: '+380987654321'
+  required:
+    - name
+    - email
+    - phone
+
+User:
+  type: object
+  properties:
+    _id:
+      type: string
+      example: '64cde2b1a3bbd14d9b2c5ad2'
+    email:
+      type: string
+      example: 'antonton@mail.com'
+  required:
+    - _id
+    - email
+
+UserInput:
+  type: object
+  properties:
+    name:
+      type: string
+      example: 'Anton Ton'
+    email:
+      type: string
+      example: 'antonton@mail.com'
+    password:
+      type: string
+      example: 'secretPassword'
+  required:
+    - name
+    - email
+    - password
